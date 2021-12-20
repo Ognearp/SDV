@@ -12,7 +12,6 @@ namespace SDV.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Shop()
         {
-            employees = new HashSet<employees>();
             Prodoct_in_shop = new HashSet<Prodoct_in_shop>();
         }
 
@@ -32,9 +31,8 @@ namespace SDV.Model
         public string number_phone { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employees> employees { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prodoct_in_shop> Prodoct_in_shop { get; set; }
+
+        public virtual ICollection<employees> Employees { get; set; }
     }
 }

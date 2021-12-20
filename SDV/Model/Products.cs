@@ -6,7 +6,7 @@ namespace SDV.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Products
+    public partial class Products : Base
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Products()
@@ -27,9 +27,7 @@ namespace SDV.Model
         [StringLength(50)]
         public string type_product { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string cost { get; set; }
+        public double cost { get; set; }
 
         [Required]
         [StringLength(250)]

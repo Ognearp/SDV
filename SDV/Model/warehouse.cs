@@ -18,14 +18,14 @@ namespace SDV.Model
         [Key]
         public int Id_warehouse { get; set; }
 
-        public int Id_warehouse_employee { get; set; }
-
         [StringLength(50)]
         public string name_warehouse { get; set; }
 
+        public int id_employee_warehouse { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product_in_warehouse> Product_in_warehouse { get; set; }
-
-        public virtual warehouse_employee warehouse_employee { get; set; }
+        public virtual ICollection<Warehouse_employess> Warehouse_Employesses { get; set; }
+        
     }
 }

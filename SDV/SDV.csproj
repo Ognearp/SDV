@@ -29,12 +29,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -42,6 +43,12 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome5, Version=2.1.4.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome5.2.1.4\lib\net472\FontAwesome5.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome5.Net, Version=2.1.4.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome5.2.1.4\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.4.3, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.4\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -52,11 +59,20 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.3.0.3, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.3.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.37\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Notification.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=1acac493089262b5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Notification.Wpf.6.1.0\lib\net47\Notification.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,6 +92,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Conventers\Shop_converter.cs" />
+    <Compile Include="Filters\FilterItem.cs" />
+    <Compile Include="Filters\Typeproducta.cs" />
+    <Compile Include="Migrations\202112171220118_yaustal.cs" />
+    <Compile Include="Migrations\202112171220118_yaustal.Designer.cs">
+      <DependentUpon>202112171220118_yaustal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112171247273_Zaebalsya.cs" />
+    <Compile Include="Migrations\202112171247273_Zaebalsya.Designer.cs">
+      <DependentUpon>202112171247273_Zaebalsya.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112181156014_Darov.cs" />
+    <Compile Include="Migrations\202112181156014_Darov.Designer.cs">
+      <DependentUpon>202112181156014_Darov.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112190841081_privet.cs" />
+    <Compile Include="Migrations\202112190841081_privet.Designer.cs">
+      <DependentUpon>202112190841081_privet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112190854256_qq.cs" />
+    <Compile Include="Migrations\202112190854256_qq.Designer.cs">
+      <DependentUpon>202112190854256_qq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Base.cs" />
+    <Compile Include="Model\BaseEmployes.cs" />
     <Compile Include="Model\Delivery.cs" />
     <Compile Include="Model\employees.cs" />
     <Compile Include="Model\Model1.cs" />
@@ -83,17 +124,26 @@
     <Compile Include="Model\Products.cs" />
     <Compile Include="Model\Products_to_delivery.cs" />
     <Compile Include="Model\Product_in_warehouse.cs" />
+    <Compile Include="Model\Role_employess.cs" />
     <Compile Include="Model\Shop.cs" />
-    <Compile Include="Model\Suplier.cs" />
-    <Compile Include="Model\sysdiagrams.cs" />
     <Compile Include="Model\warehouse.cs" />
-    <Compile Include="Model\warehouse_employee.cs" />
+    <Compile Include="Model\Warehouse_employess.cs" />
+    <Compile Include="OtherClass\AmountProduct.cs" />
     <Compile Include="Services\User_services.cs" />
     <Compile Include="Windows\Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Create_delivery.xaml.cs">
+      <DependentUpon>Create_delivery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Saw_Delivry.xaml.cs">
+      <DependentUpon>Saw_Delivry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Shops_products.xaml.cs">
       <DependentUpon>Shops_products.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Warehouse_product.xaml.cs">
+      <DependentUpon>Warehouse_product.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +165,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Create_delivery.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Saw_Delivry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Shops_products.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Warehouse_product.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +196,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202112171220118_yaustal.resx">
+      <DependentUpon>202112171220118_yaustal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112171247273_Zaebalsya.resx">
+      <DependentUpon>202112171247273_Zaebalsya.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112181156014_Darov.resx">
+      <DependentUpon>202112181156014_Darov.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112190841081_privet.resx">
+      <DependentUpon>202112190841081_privet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112190854256_qq.resx">
+      <DependentUpon>202112190854256_qq.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

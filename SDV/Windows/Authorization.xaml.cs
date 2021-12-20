@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MaterialDesignExtensions.Controls;
+using Notification.Wpf;
 using SDV.Model;
 using SDV.Services;
 
@@ -70,29 +71,34 @@ namespace SDV.Windows
         {
             using(var bd = new Model1())
             {
-               
-                if (bd.employees.Any(p=>p.login== Login && p.password== Passwords) == true)
+
+                if (bd.BaseEmployes.Any(p => p.login == Login && p.password == Passwords) == true)
                 {
-                    User_services.Instance.CurentEmployees = bd.employees.FirstOrDefault(p => p.login == Login && p.password == Passwords);
-                    Shops_products shop = new Shops_products();
-                    shop.Show();
-                    this.Close();
-                    
-                   
+                    User_services.Instance.CurentEmployees = bd.BaseEmployes.FirstOrDefault(p => p.login == Login && p.password == Passwords);
+                    if (User_services.Instance.CurentEmployees.id_role == 1)
+                    {
+                        Shops_products shop = new Shops_products();
+                        shop.Show();
+                        this.Close();
+                    }
+                    if (User_services.Instance.CurentEmployees.id_role == 2)
+                    {
+                        Warehouse_product warehouse = new Warehouse_product();
+                        warehouse.Show();
+                        this.Close();
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Неверный логин или пароль");
+                    NotificationManager alo = new NotificationManager();
+                    alo.Show(new NotificationContent {Title="Ошибка",Message= "Неверный логин или пароль", Type=NotificationType.Error },areaName:"Notify");
                 }
-               
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Avtorization();
         }
-        
-
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
            

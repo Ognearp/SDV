@@ -8,21 +8,23 @@ namespace SDV.Model
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model13")
+            : base("name=Model17")
         {
         }
 
         public virtual DbSet<Delivery> Delivery { get; set; }
-        public virtual DbSet<employees> employees { get; set; }
         public virtual DbSet<Prodoct_in_shop> Prodoct_in_shop { get; set; }
         public virtual DbSet<Product_in_warehouse> Product_in_warehouse { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Products_to_delivery> Products_to_delivery { get; set; }
+        public virtual DbSet<Role_employess> Role_employess { get; set; }
         public virtual DbSet<Shop> Shop { get; set; }
-        public virtual DbSet<Suplier> Suplier { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<warehouse> warehouse { get; set; }
-        public virtual DbSet<warehouse_employee> warehouse_employee { get; set; }
+
+        public virtual DbSet<BaseEmployes> BaseEmployes {get;set;}
+
+        public virtual DbSet<employees> Employees { get; set; }
+        public virtual DbSet<Warehouse_employess> Warehouse_Employesses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,29 +33,12 @@ namespace SDV.Model
                 .WithRequired(e => e.Delivery)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<employees>()
-                .Property(e => e.login)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<employees>()
-                .Property(e => e.password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<employees>()
-                .HasMany(e => e.Delivery)
-                .WithRequired(e => e.employees)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Products>()
                 .Property(e => e.name_product)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Products>()
                 .Property(e => e.type_product)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Products>()
-                .Property(e => e.cost)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Products>()
@@ -79,6 +64,10 @@ namespace SDV.Model
                 .WithRequired(e => e.Products)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Role_employess>()
+                .Property(e => e.decritption_role)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Shop>()
                 .Property(e => e.adress)
                 .IsUnicode(false);
@@ -96,18 +85,14 @@ namespace SDV.Model
                 .WithRequired(e => e.Shop)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Suplier>()
-                .Property(e => e.name_suplier)
-                .IsUnicode(false);
+          
 
-            modelBuilder.Entity<Suplier>()
-                .Property(e => e.adress)
-                .IsUnicode(false);
+          
 
-            modelBuilder.Entity<Suplier>()
-                .HasMany(e => e.Delivery)
-                .WithRequired(e => e.Suplier)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<employees>()
+               .HasMany(e => e.Delivery)
+               .WithRequired(p=>p.Employees)
+               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<warehouse>()
                 .Property(e => e.name_warehouse)
@@ -118,18 +103,8 @@ namespace SDV.Model
                 .WithRequired(e => e.warehouse)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<warehouse_employee>()
-                .Property(e => e.login)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<warehouse_employee>()
-                .Property(e => e.password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<warehouse_employee>()
-                .HasMany(e => e.warehouse)
-                .WithRequired(e => e.warehouse_employee)
-                .WillCascadeOnDelete(false);
+           
+            
         }
     }
 }
