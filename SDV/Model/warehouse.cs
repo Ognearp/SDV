@@ -5,6 +5,8 @@ namespace SDV.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using SDV.Services;
 
     [Table("warehouse")]
     public partial class warehouse
@@ -26,6 +28,7 @@ namespace SDV.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product_in_warehouse> Product_in_warehouse { get; set; }
         public virtual ICollection<Warehouse_employess> Warehouse_Employesses { get; set; }
-        
+
+       
     }
 }

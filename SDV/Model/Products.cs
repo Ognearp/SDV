@@ -5,6 +5,8 @@ namespace SDV.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using SDV.Services;
 
     public partial class Products : Base
     {
@@ -48,5 +50,9 @@ namespace SDV.Model
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products_to_delivery> Products_to_delivery { get; set; }
+
+        public int CurrentShop => Prodoct_in_shop.FirstOrDefault(p => p.Id_shop == (User_services.Instance.CurentEmployees as employees).id_shop).Kol_vo_v_shop;
+
+        public int CurrentWarehouse => Product_in_warehouse.FirstOrDefault(p => p.Id_warehouse == (User_services.Instance.CurentEmployees as Warehouse_employess).warehouse.Id_warehouse).amount_on_warehouse;
     }
 }

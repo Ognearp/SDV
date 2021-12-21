@@ -45,8 +45,6 @@ namespace SDV.Windows
         public Warehouse_product()
         {
             LoadProduct();
-            LoadSort();
-            LoadFilter();
             InitializeComponent();
             InitializeFieldsAsync();
             DataContext = this;
@@ -56,23 +54,17 @@ namespace SDV.Windows
         #region Property
         public ObservableCollection<Products> Productlist { get => productlist; set { productlist = value; OnPropertyChanged(); } }
 
-        public string Search { get => search; set { search = value; OnPropertyChanged(); FilerMetod(); } }
+ 
 
         public ObservableCollection<Products> Filterlist { get => filterlist; set { filterlist = value; OnPropertyChanged(); } }
 
-        public int CurrentPage { get => currentPage; set { currentPage = value; OnPropertyChanged(); FilerMetod(); } }
-        public bool OrderbyDesign { get => orderbyDesign; set { orderbyDesign = value; OnPropertyChanged(); FilerMetod(); } }
-        public FilterItem Sortitem { get => sortitem; set { sortitem = value; OnPropertyChanged(); FilerMetod(); } }
+     
+        public bool OrderbyDesign { get => orderbyDesign; set { orderbyDesign = value; OnPropertyChanged();  } }
+     
         public Products SelectProduct { get => selectProduct; set { selectProduct = value; OnPropertyChanged(); } }
-        public string PageDisplay { get => $"{currentPage + 1}/{MaxPages}"; }
+      
         public ObservableCollection<Typeproducta> FilterType { get; set; }
-        public List<FilterItem> SortParams { get; set; }
-        public string Ordreby { get => ordreby; set { ordreby = value; OnPropertyChanged(); } }
-
-        public int MaxPages { get => maxPages; set { maxPages = value; OnPropertyChanged(); } }
-
-        public int Mincost { get => mincost; set { mincost = value; OnPropertyChanged(); FilerMetod(); } }
-        public int Maxcost { get => maxcost; set { maxcost = value; OnPropertyChanged(); FilerMetod(); } }
+   
 
         #endregion
 
@@ -82,26 +74,7 @@ namespace SDV.Windows
         public async Task InitializeFieldsAsync()
         {
 
-            search = string.Empty;
-            itemonpage = 5;
-            sortitem = SortParams[0];
-            OrderbyDesign = true;
-            currentPage = 0;
-            mincost = 0;
-            maxcost = 0;
-            try
-            {
-                await Task.Run(() =>
-                {
-                    FilerMetod();
-                    MaxPage();
-
-                });
-            }
-            catch (Exception ex)
-            {
-
-            }
+           
 
         }
 
@@ -114,152 +87,20 @@ namespace SDV.Windows
                 var data = new ObservableCollection<Product_in_warehouse>(bd.Product_in_warehouse.Where(p => p.Id_warehouse == otdel));
                 foreach (var item in data)
                 {
+                    bd.Entry(item.Products).Collection("Product_in_warehouse").Load();
                     Productlist.Add(item.Products);
                 }
                 Filterlist = Productlist;
             }
         }
 
-        public void LoadSort()
-        {
-            SortParams = new List<FilterItem>
-            {
-                new FilterItem("name_product","Название продукта"),
-                new FilterItem("cost","Цена"),
-            };
-        }
-        public void LoadFilter()
-        {
-            FilterType = new ObservableCollection<Typeproducta>()
-            {
-                new Typeproducta("Вафли",false),
-                new Typeproducta("Крекер",false),
-                new Typeproducta("Печенье",false),
-                new Typeproducta("Пряники",false),
-                new Typeproducta("Шоколад",false),
-                new Typeproducta("Батончик",false),
-                new Typeproducta("Бисквит",false),
-                new Typeproducta("Рулет",false),
-                new Typeproducta("Конфеты",false),
-            };
-        }
-        public IEnumerable<Products> SortMetod(string orderby = "name_product")
-        {
-            if (OrderbyDesign)
-            {
-                return Productlist.OrderByDescending(p => p.GetProperty(orderby).GetType() == typeof(string) ? p.GetProperty(orderby).ToString().Replace("«", "").Replace("»", "") : p.GetProperty(orderby));
-            }
-            else
-            {
-                return Productlist.OrderBy(p => p.GetProperty(orderby).GetType() == typeof(string) ? p.GetProperty(orderby).ToString().Replace("«", "").Replace("»", "") : p.GetProperty(orderby));
-            }
-
-        }
-        public void FilerMetod()
-        {
-            var list = SortMetod(Sortitem.Property).ToList();
-
-            list = list.Where(p => p.name_product.Contains(Search.ToUpper().ToLower())).ToList();
-
-            var selectedType = FilterType.Where(p => p.IsSelected);
-
-            if (selectedType.Count() > 0)
-            {
-                foreach (var item in list.ToArray())
-                {
-                    if (selectedType.FirstOrDefault(p => p.Name.Equals(item.type_product)) == null)
-                    {
-                        list.Remove(item);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-            }
-            if (Maxcost > 0)
-            {
-                list = list.Where(p => p.cost >= Mincost && p.cost <= Maxcost).ToList();
-            }
-            list = list.Skip(currentPage * itemonpage).Take(itemonpage).ToList();
-            MaxPage();
-            OnPropertyChanged(nameof(PageDisplay));
-            Filterlist = new ObservableCollection<Products>(list);
-            if (CurrentPage >= MaxPages)
-            {
-                CurrentPage = MaxPages - 1;
-            }
-        }
-        public int MaxPage()
-        {
-            var list = SortMetod(Sortitem.Property).ToList();
-
-            list = list.Where(p => p.name_product.Contains(Search.ToUpper().ToLower())).ToList();
-
-            var selectedType = FilterType.Where(p => p.IsSelected);
-
-            if (selectedType.Count() > 0)
-            {
-                foreach (var item in list.ToArray())
-                {
-                    if (selectedType.FirstOrDefault(p => p.Name.Equals(item.type_product)) == null)
-                    {
-                        list.Remove(item);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-            }
-            if (Maxcost > 0)
-            {
-                list = list.Where(p => p.cost >= Mincost && p.cost <= Maxcost).ToList();
-            }
-
-            return MaxPages = (int)Math.Ceiling((float)list.Count / (float)itemonpage);
-
-        }
+     
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string property = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
         #endregion
-
-        private void Previous_click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentPage > 0)
-            {
-                CurrentPage--;
-            }
-        }
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            FilerMetod();
-        }
-        private void Next_Click(object sender, RoutedEventArgs e)
-        {
-            if (CurrentPage + 1 < MaxPages)
-            {
-
-                CurrentPage++;
-            }
-        }
-        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
-        {
-            if (Togle.IsChecked == true)
-            {
-
-                OrderbyDesign = false;
-            }
-            if (Togle.IsChecked == false)
-            {
-                OrderbyDesign = true;
-            }
-        }
 
         private void See_delivery(object sender, RoutedEventArgs e)
         {

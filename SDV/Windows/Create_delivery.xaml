@@ -1,4 +1,4 @@
-﻿<Window x:Class="SDV.Windows.Create_delivery"
+﻿<Exception:MaterialWindow BorderBackgroundBrush="#FB7E51" x:Class="SDV.Windows.Create_delivery"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Material ="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -46,8 +46,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Frame BorderBrush="#FDA022" Background="#FDA022" BorderThickness="1" Height="52" VerticalAlignment="Bottom"/>
+        <Frame BorderBrush="#FDBB5D" Background="#FDBB5D" BorderThickness="1" Height="52" VerticalAlignment="Bottom"/>
         <Notification:NotificationArea x:Name="Notify" Position="BottomRight" MaxItems="15" Margin="7,344,666,8"/>
         <Button Click="Create_delivry" Content="Сформировать заказ" Margin="0,0,36,10" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="183"/>
     </Grid>
-</Window>
+</Exception:MaterialWindow>

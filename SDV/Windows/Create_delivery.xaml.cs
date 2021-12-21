@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MaterialDesignExtensions.Controls;
 using Notification.Wpf;
 using SDV.Model;
 using SDV.OtherClass;
@@ -24,7 +25,7 @@ namespace SDV.Windows
     /// <summary>
     /// Логика взаимодействия для Create_delivery.xaml
     /// </summary>
-    public partial class Create_delivery : Window , INotifyPropertyChanged
+    public partial class Create_delivery : MaterialWindow , INotifyPropertyChanged
     {
 
 

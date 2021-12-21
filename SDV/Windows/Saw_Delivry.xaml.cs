@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SDV.Model;
+using SDV.Services;
 
 namespace SDV.Windows
 {
@@ -25,12 +26,15 @@ namespace SDV.Windows
     {
         #region Fields
         private ObservableCollection<Delivery> deliveries;
+        private Delivery currentDelivery;
 
         #endregion
 
 
         #region Property
         public ObservableCollection<Delivery> Deliveries { get => deliveries; set { deliveries = value; OnPropertyChanged(); } }
+
+        public Delivery CurrentDelivery { get => currentDelivery; set { currentDelivery = value; OnPropertyChanged(); } }
         #endregion
         public Saw_Delivry()
         {
@@ -46,7 +50,7 @@ namespace SDV.Windows
         {
             using(var bd = new Model1())
             {
-                Deliveries = new ObservableCollection<Delivery>(bd.Delivery);
+                Deliveries = new ObservableCollection<Delivery>(bd.Delivery.Include("Products_to_delivery"));
             }
         }
 
@@ -58,5 +62,44 @@ namespace SDV.Windows
         }
         #endregion
 
+        private void Complete_delivery(object sender, RoutedEventArgs e)
+        {
+            using(var bd  = new Model1())
+            {
+                var user = bd.Employees.FirstOrDefault(p => p.EmployeesId == CurrentDelivery.EmployeesId) as employees;
+                var warehouse = bd.warehouse.Include("Product_in_warehouse").FirstOrDefault();
+                var shop = bd.Shop.FirstOrDefault(p => p.Id_shop == user.id_shop);
+
+                foreach(var item in CurrentDelivery.Products_to_delivery)
+                {
+
+                    var productinwarehouse = warehouse.Product_in_warehouse.FirstOrDefault(p => p.Id_product == item.Id_product);
+                    if (productinwarehouse.amount_on_warehouse - item.amount>=0)
+                    {
+                        productinwarehouse.amount_on_warehouse -= item.amount;
+                    }
+                    else
+                    {
+
+                    }
+
+                    var shopinproduct = shop.Prodoct_in_shop.FirstOrDefault(p => p.Id_product == item.Id_product);
+                    if (shopinproduct == null)
+                    {
+                        shop.Prodoct_in_shop.Add(new Prodoct_in_shop { Id_product = item.Id_product, Id_shop = shop.Id_shop, Kol_vo_v_shop = item.amount });
+                    }
+                    else
+                    {
+                        shopinproduct.Kol_vo_v_shop += item.amount;
+                    }
+                    
+                   
+                }
+                bd.Delivery.Remove(bd.Delivery.FirstOrDefault(p=>p.Id_delivery == CurrentDelivery.Id_delivery));
+                bd.SaveChanges();
+                LoadDelivry();
+            }
+            
+        }
     }
 }

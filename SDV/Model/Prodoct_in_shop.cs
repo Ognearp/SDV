@@ -23,5 +23,6 @@ namespace SDV.Model
         public virtual Products Products { get; set; }
 
         public virtual Shop Shop { get; set; }
+
     }
 }

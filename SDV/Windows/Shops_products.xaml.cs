@@ -75,7 +75,7 @@ namespace SDV.Windows
         #endregion
         public Shops_products()
         {
-
+            
             LoadProduct();
             LoadSort();
             LoadFilter();
@@ -122,9 +122,11 @@ namespace SDV.Windows
             {
                 var alo = (User_services.Instance.CurentEmployees as employees).id_shop;
                 var data = new ObservableCollection<Prodoct_in_shop>(bd.Prodoct_in_shop.Where(p => p.Id_shop == alo));
-                foreach (var item in data)
+                foreach (var item in data )
                 {
+                    bd.Entry(item.Products).Collection("Prodoct_in_shop").Load();
                     Productlist.Add(item.Products);
+                    
                 }
                 Filterlist = Productlist;
             }

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Просмотр заявки" Height="450" Width="800">
     <Grid>
-        <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Deliveries}" Margin="5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Deliveries}" SelectedItem="{Binding CurrentDelivery}" Margin="5,5,5,70" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate  DataType="{x:Type ListViewItem}">
                     <Grid>
@@ -28,5 +28,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button  Click="Complete_delivery" Content="Подвердить заявку" Margin="0,0,62,19" Height="32" HorizontalAlignment="Right" Width="180" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
