@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:SDV.Windows"
         mc:Ignorable="d"
         Title="Авторизация"
-        Height="477.637" Width="835.268" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Height="477.637" Width="835.268" MouseLeftButtonDown="Window_MouseLeftButtonDown" MinHeight="477" MinWidth="835" MaxHeight="477" MaxWidth="835">
 
     <Grid Background="White">
         <Grid.ColumnDefinitions>

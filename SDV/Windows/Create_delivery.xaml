@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SDV.Windows"
         mc:Ignorable="d"
-        Title="Создать заявку" Height="499.437" Width="993.254">
+        Title="Создать заявку" Height="527.976" Width="987.546" MinHeight="527" MinWidth="987" MaxHeight="527" MaxWidth="987">
     <Grid>
         <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding Amountproducts}" SelectedItem="{Binding Currentproduct}" Margin="1,0,0,52" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Width="479" >
             <ListView.ItemTemplate>
@@ -26,7 +26,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="480,0,0,52"  Width="2" Height="415" VerticalAlignment="Bottom" />
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="480,1,0,52"  Width="2" />
         <ListView ItemsSource="{Binding Products_To_Delivery}" SelectedItem="{Binding Currentindelivry}" Height="416" Margin="0,0,1,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="502">
             <ListView.ItemTemplate>
                 <DataTemplate  DataType="{x:Type ListViewItem}">

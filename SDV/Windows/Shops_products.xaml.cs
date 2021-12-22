@@ -55,7 +55,7 @@ namespace SDV.Windows
 
         public ObservableCollection<Products> Filterlist { get => filterlist; set { filterlist = value; OnPropertyChanged(); } }
 
-        public int CurrentPage { get => currentPage; set { currentPage = value; OnPropertyChanged(); FilerMetod(); } }
+        public int CurrentPage { get => currentPage; set { currentPage=value; OnPropertyChanged(); FilerMetod(); } }
         public bool OrderbyDesign { get => orderbyDesign; set { orderbyDesign = value; OnPropertyChanged(); FilerMetod(); } }
         public FilterItem Sortitem { get => sortitem; set { sortitem = value; OnPropertyChanged(); FilerMetod(); } }
         public Products SelectProduct { get => selectProduct; set { selectProduct = value; OnPropertyChanged(); } }
@@ -64,7 +64,7 @@ namespace SDV.Windows
         public List<FilterItem> SortParams { get; set; }
         public string Ordreby { get => ordreby; set { ordreby = value; OnPropertyChanged(); } }
 
-        public int MaxPages { get => maxPages; set { maxPages = value; OnPropertyChanged(); } }
+        public int MaxPages { get => maxPages; set { maxPages=value > 0 ? maxPages = value : 1; OnPropertyChanged(); } }
 
         public int Mincost { get => mincost; set { mincost = value; OnPropertyChanged(); FilerMetod(); } }
         public int Maxcost { get => maxcost; set { maxcost = value; OnPropertyChanged(); FilerMetod(); } }
@@ -170,7 +170,7 @@ namespace SDV.Windows
         {
             var list = SortMetod(Sortitem.Property).ToList();
             
-            list = list.Where(p => p.name_product.Contains(Search.ToUpper().ToLower())).ToList();
+            list = list.Where(p => p.name_product.ToLower().Contains(Search.ToLower())).ToList();
 
             var selectedType = FilterType.Where(p => p.IsSelected);
 
@@ -199,6 +199,7 @@ namespace SDV.Windows
             Filterlist = new ObservableCollection<Products>(list);
             if (CurrentPage >= MaxPages)
             {
+                
                 CurrentPage = MaxPages-1;
             }
         }
@@ -206,7 +207,7 @@ namespace SDV.Windows
         {
             var list = SortMetod(Sortitem.Property).ToList();
 
-            list = list.Where(p => p.name_product.Contains(Search.ToUpper().ToLower())).ToList();
+            list = list.Where(p => p.name_product.ToLower().Contains(Search.ToLower())).ToList();
 
             var selectedType = FilterType.Where(p => p.IsSelected);
 

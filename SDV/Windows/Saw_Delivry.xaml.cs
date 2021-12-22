@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MaterialDesignExtensions.Controls;
 using SDV.Model;
 using SDV.Services;
 
@@ -22,7 +23,7 @@ namespace SDV.Windows
     /// <summary>
     /// Логика взаимодействия для Saw_Delivry.xaml
     /// </summary>
-    public partial class Saw_Delivry : Window, INotifyPropertyChanged
+    public partial class Saw_Delivry : MaterialWindow, INotifyPropertyChanged
     {
         #region Fields
         private ObservableCollection<Delivery> deliveries;
@@ -99,6 +100,17 @@ namespace SDV.Windows
                 bd.SaveChanges();
                 LoadDelivry();
             }
+            
+        }
+
+        private void Delete_delivery(object sender, RoutedEventArgs e)
+        {
+            using(var bd = new Model1())
+            {
+                bd.Delivery.Remove(bd.Delivery.FirstOrDefault(p => p.Id_delivery == CurrentDelivery.Id_delivery));
+                bd.SaveChanges();
+            }
+            LoadDelivry();
             
         }
     }

@@ -7,7 +7,7 @@
         xmlns:Material ="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Exception ="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         mc:Ignorable="d"
-        Title="Продукты на складе" Height="782" Width="1223.5">
+        Title="Продукты на складе" Height="782" Width="1223.5"  MinHeight="782" MinWidth="1220" MaxHeight="782" MaxWidth="1500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="205*"/>
