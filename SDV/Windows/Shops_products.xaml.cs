@@ -285,5 +285,12 @@ namespace SDV.Windows
             Create_delivery delivery = new Create_delivery();
             delivery.Show();
         }
+
+        private void Go_Back(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            this.Close();
+        }
     }
 }

@@ -107,5 +107,12 @@ namespace SDV.Windows
             Saw_Delivry saw = new Saw_Delivry();
             saw.Show();
         }
+
+        private void Go_Back(object sender, RoutedEventArgs e)
+        {
+            Authorization authorization = new Authorization();
+            authorization.Show();
+            this.Close();
+        }
     }
 }

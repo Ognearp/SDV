@@ -20,7 +20,7 @@
             <RowDefinition Height="387*"/>
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding Filterlist}" Margin="3,5,5,5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" >
+        <ListView FontSize="16" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ItemsSource="{Binding Filterlist}" Margin="3,5,5,5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"  Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding name_product}" Header="Название продукта" />
@@ -31,8 +31,9 @@
             
         </ListView>
         <Frame BorderBrush="#FDBB5D" Background="#FDBB5D" BorderThickness="1"   Grid.Row="3"  Grid.ColumnSpan="3"/>
-        <Button Click="See_delivery" Style="{StaticResource MaterialDesignFlatAccentButton}" Foreground="#293345"  Content="Посмотреть заявки"  Margin="74,30,0,0" Grid.Row="3" Height="42" HorizontalAlignment="Left" Width="168" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Material:PackIcon Kind="CoffeeMakerCheckOutline" HorizontalAlignment="Left" Height="34" Margin="34,37,0,0" VerticalAlignment="Top" Width="34" Grid.Row="3" RenderTransformOrigin="0.382,3.676"/>
+        <Button FontSize="16" Click="See_delivery" Style="{StaticResource MaterialDesignFlatAccentButton}" Foreground="#293345"  Content="Посмотреть заявки"  Margin="74,30,0,0" Grid.Row="3" Height="42" HorizontalAlignment="Left" Width="201" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Material:PackIcon Kind="CoffeeMakerCheckOutline" HorizontalAlignment="Left" Height="34" Margin="49,34,0,0" VerticalAlignment="Top" Width="34" Grid.Row="3" RenderTransformOrigin="0.382,3.676"/>
         <Frame  Background="#FDBB5D"  Grid.ColumnSpan="3" Margin="-1,0,0,0"/>
+        <Button Click="Go_Back" Content="Назад" Grid.Column="2" Margin="0,16,39,0" HorizontalAlignment="Right" Width="74" Height="32" VerticalAlignment="Top"/>
     </Grid>
 </Exception:MaterialWindow>

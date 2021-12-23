@@ -27,7 +27,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Margin="480,1,0,52"  Width="2" />
-        <ListView ItemsSource="{Binding Products_To_Delivery}" SelectedItem="{Binding Currentindelivry}" Height="416" Margin="0,0,1,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="502">
+        <ListView ItemsSource="{Binding Products_To_Delivery}" SelectedItem="{Binding Currentindelivry}" Height="439" Margin="0,0,1,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="493">
             <ListView.ItemTemplate>
                 <DataTemplate  DataType="{x:Type ListViewItem}">
                     <Grid>

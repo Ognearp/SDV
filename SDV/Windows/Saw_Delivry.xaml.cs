@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MaterialDesignExtensions.Controls;
+using Notification.Wpf;
 using SDV.Model;
 using SDV.Services;
 
@@ -98,6 +99,8 @@ namespace SDV.Windows
                 }
                 bd.Delivery.Remove(bd.Delivery.FirstOrDefault(p=>p.Id_delivery == CurrentDelivery.Id_delivery));
                 bd.SaveChanges();
+                NotificationManager alo = new NotificationManager();
+                alo.Show(new NotificationContent { Title = "Заявка принята!", Message = "Заявка успешно принята", Type = NotificationType.Success }, areaName: "Notify");
                 LoadDelivry();
             }
             
@@ -105,10 +108,24 @@ namespace SDV.Windows
 
         private void Delete_delivery(object sender, RoutedEventArgs e)
         {
-            using(var bd = new Model1())
+            var dialog = MessageBox.Show("Вы точно хотите отклонить заявку?", "Оповещание", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            if (dialog == MessageBoxResult.OK)
             {
-                bd.Delivery.Remove(bd.Delivery.FirstOrDefault(p => p.Id_delivery == CurrentDelivery.Id_delivery));
-                bd.SaveChanges();
+                using (var bd = new Model1())
+                {
+                    if (CurrentDelivery != null)
+                    {
+                        bd.Delivery.Remove(bd.Delivery.FirstOrDefault(p => p.Id_delivery == CurrentDelivery.Id_delivery));
+                        bd.SaveChanges();
+                        NotificationManager alo = new NotificationManager();
+                        alo.Show(new NotificationContent { Title = "Заявка отклонена!", Message = "Заявка успешно отклонена", Type = NotificationType.Information }, areaName: "Notify");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сначала выберите заявку!", "Оповещание", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                   
+                }
             }
             LoadDelivry();
             
